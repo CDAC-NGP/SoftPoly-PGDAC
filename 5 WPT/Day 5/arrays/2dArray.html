@@ -1,0 +1,44 @@
+<script>
+
+    // 2d array
+
+    let arr=[
+        [3,5,7],
+        [3,5,7],
+        [3,5,7],
+    ]
+
+    arr.push([4,56,6])
+
+
+    console.log(arr)
+    const rowSize=arr.length
+    const colSize=arr[0].length
+    console.log(rowSize,"x",colSize)
+
+    console.log(arr[3][1])
+
+
+    arr.forEach(function(r)
+    {
+        r.forEach(function(e){
+            console.log(e)
+        })
+
+    })
+    console.log(".....................")
+    for(r=0;r<arr.length;r++)
+    {
+        for(c=0;c<arr[0].length;c++)
+        {
+            console.log(arr[r][c]) 
+        }
+    }
+
+    console.table(arr)
+
+    console.warn("Helloo")
+    console.error("Helloo")
+
+
+</script>

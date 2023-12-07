@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  
+</head>
+
+<body>
+    <form onsubmit="saveUser(event)">
+        <table>
+            <tr>
+                <td>
+                    <input placeholder="Enter name" type="text" id="name" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="number" id="age" placeholder="Enter age" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="tel" id="mobile" placeholder="Enter Mobile No." required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+    <div class="user-data">
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Mobile No.</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="user-details">
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <script>
+        
+        function generateTable() {
+            const userDetails = document.getElementById("user-details")
+            userDetails.innerHTML=""
+            const userJSON = localStorage.getItem("user")
+            const arrUser = JSON.parse(userJSON)
+
+            arrUser.forEach(function (e,i) {
+
+                const tr = `<tr>
+                                <td>${i+1}</td>
+                                <td>${e.name}</td>
+                                <td>${e.age}</td>
+                                <td>${e.mobile}</td>
+                                <td>
+                                    <input type='button' value="Update">
+                                    <input type='button' value="Delete">
+                                    </td>
+                            </tr>`
+                // i+=1 // i=i+1
+                userDetails.innerHTML += tr
+                // userDetails.innerHTML=userDetails.innerHTML+tr
+            });
+        }
+
+        generateTable()
+        function saveUser(event) {
+            event.preventDefault()
+            const name = document.getElementById("name").value
+            const age = document.getElementById("age").value
+            const mobile = document.getElementById("mobile").value
+
+            const user = { name, age, mobile }
+            let arrUser = []
+            let userJSON = localStorage.getItem("user")
+            
+            if (userJSON != null) {
+                arrUser = JSON.parse(userJSON)
+            }
+            else {
+                localStorage.setItem("user", JSON.stringify([]))
+                userJSON = localStorage.getItem("user")
+                arrUser = JSON.parse(userJSON)
+            }
+            arrUser.push(user)
+
+            localStorage.setItem("user", JSON.stringify(arrUser))
+
+            generateTable()
+        }
+
+
+    </script>
+</body>
+
+</html>
